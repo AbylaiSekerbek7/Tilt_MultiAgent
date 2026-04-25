@@ -1,0 +1,219 @@
+{
+  "ticker": "NVDA",
+  "cycle_date": "2026-04-25",
+  "n_runs": 10,
+  "generated_at": 1777101059,
+  "models_used": {
+    "fundamentals": "google/gemini-2.5-pro",
+    "technical": "deepseek/deepseek-v4-pro",
+    "news": "openai/gpt-5.2",
+    "sentiment": "anthropic/claude-haiku-4.5",
+    "bull": "anthropic/claude-sonnet-4.6",
+    "bear": "anthropic/claude-sonnet-4.6",
+    "trader": "qwen/qwen3-max",
+    "risk": "anthropic/claude-sonnet-4.6",
+    "fund_manager": "anthropic/claude-sonnet-4.6"
+  },
+  "trader": {
+    "direction_counts": {
+      "hold": 6,
+      "long": 3,
+      "short": 1
+    },
+    "size_pct": {
+      "n": 10,
+      "mean": 0.048,
+      "min": 0.0,
+      "max": 0.12,
+      "stdev": 0.061968
+    },
+    "target": {
+      "n": 9,
+      "mean": 1059.444444,
+      "min": 875,
+      "max": 1120,
+      "stdev": 70.774485
+    },
+    "stop": {
+      "n": 9,
+      "mean": 1013.333333,
+      "min": 985.0,
+      "max": 1080,
+      "stdev": 26.575365
+    },
+    "entry_band_midpoint": {
+      "n": 10,
+      "mean": 1040.25,
+      "min": 1027.5,
+      "max": 1042.5,
+      "stdev": 4.779877
+    }
+  },
+  "risk_decision_counts": {
+    "approve": 9,
+    "modify": 1
+  },
+  "fund_manager_decision_counts": {
+    "approved": 10
+  },
+  "executed_count": 10,
+  "elapsed_seconds": {
+    "n": 9,
+    "mean": 63.732468,
+    "min": 57.06156277656555,
+    "max": 72.39240336418152,
+    "stdev": 4.956924
+  },
+  "per_run": [
+    {
+      "run_index": 1,
+      "direction": "hold",
+      "size_pct": 0.0,
+      "entry_band": [
+        1042.5,
+        1042.5
+      ],
+      "target": 1075.0,
+      "stop": 985.0,
+      "risk_decision": "approve",
+      "fund_manager_decision": "approved",
+      "executed": true,
+      "elapsed_seconds": null
+    },
+    {
+      "run_index": 2,
+      "direction": "long",
+      "size_pct": 0.12,
+      "entry_band": [
+        1025.0,
+        1050.0
+      ],
+      "target": 1090.0,
+      "stop": 1010.0,
+      "risk_decision": "approve",
+      "fund_manager_decision": "approved",
+      "executed": true,
+      "elapsed_seconds": 72.39240336418152
+    },
+    {
+      "run_index": 3,
+      "direction": "hold",
+      "size_pct": 0.0,
+      "entry_band": [
+        1010,
+        1075
+      ],
+      "target": null,
+      "stop": null,
+      "risk_decision": "approve",
+      "fund_manager_decision": "approved",
+      "executed": true,
+      "elapsed_seconds": 66.9974193572998
+    },
+    {
+      "run_index": 4,
+      "direction": "hold",
+      "size_pct": 0.0,
+      "entry_band": [
+        1042.5,
+        1042.5
+      ],
+      "target": 1075.0,
+      "stop": 1010.0,
+      "risk_decision": "approve",
+      "fund_manager_decision": "approved",
+      "executed": true,
+      "elapsed_seconds": 69.73988270759583
+    },
+    {
+      "run_index": 5,
+      "direction": "long",
+      "size_pct": 0.12,
+      "entry_band": [
+        1030,
+        1050
+      ],
+      "target": 1075,
+      "stop": 1010,
+      "risk_decision": "approve",
+      "fund_manager_decision": "approved",
+      "executed": true,
+      "elapsed_seconds": 60.182159662246704
+    },
+    {
+      "run_index": 6,
+      "direction": "hold",
+      "size_pct": 0.0,
+      "entry_band": [
+        1010,
+        1075
+      ],
+      "target": 1075,
+      "stop": 1010,
+      "risk_decision": "approve",
+      "fund_manager_decision": "approved",
+      "executed": true,
+      "elapsed_seconds": 60.50738000869751
+    },
+    {
+      "run_index": 7,
+      "direction": "hold",
+      "size_pct": 0.0,
+      "entry_band": [
+        1010,
+        1075
+      ],
+      "target": 1075,
+      "stop": 1010,
+      "risk_decision": "approve",
+      "fund_manager_decision": "approved",
+      "executed": true,
+      "elapsed_seconds": 57.06156277656555
+    },
+    {
+      "run_index": 8,
+      "direction": "short",
+      "size_pct": 0.12,
+      "entry_band": [
+        1030,
+        1055
+      ],
+      "target": 875,
+      "stop": 1080,
+      "risk_decision": "modify",
+      "fund_manager_decision": "approved",
+      "executed": true,
+      "elapsed_seconds": 61.751150608062744
+    },
+    {
+      "run_index": 9,
+      "direction": "hold",
+      "size_pct": 0.0,
+      "entry_band": [
+        1010,
+        1075
+      ],
+      "target": 1075,
+      "stop": 1010,
+      "risk_decision": "approve",
+      "fund_manager_decision": "approved",
+      "executed": true,
+      "elapsed_seconds": 62.12222909927368
+    },
+    {
+      "run_index": 10,
+      "direction": "long",
+      "size_pct": 0.12,
+      "entry_band": [
+        1010,
+        1045
+      ],
+      "target": 1120,
+      "stop": 995,
+      "risk_decision": "approve",
+      "fund_manager_decision": "approved",
+      "executed": true,
+      "elapsed_seconds": 62.83802342414856
+    }
+  ]
+}

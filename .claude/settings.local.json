@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s \"https://openrouter.ai/api/v1/models\" -o /tmp/openrouter_models.json)",
+      "Read(//tmp/**)",
+      "Bash(python *)",
+      "Bash(py --version)",
+      "Bash(py *)",
+      "Bash(curl -s \"https://openrouter.ai/api/v1/models\" -o /d/Tilt/tilt-challenge/.openrouter_models.json)",
+      "Bash(/d/Tilt/tilt-challenge/prototype/.venv/Scripts/python.exe *)",
+      "Bash(./.venv/Scripts/python.exe run.py --mock)",
+      "Bash(PYTHONIOENCODING=utf-8 ./.venv/Scripts/python.exe run.py --mock)"
+    ]
+  }
+}
