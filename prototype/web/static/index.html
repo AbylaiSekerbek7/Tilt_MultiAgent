@@ -3,136 +3,293 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tilt AI Trading Agents — live demo</title>
+  <meta name="color-scheme" content="dark" />
+  <title>Tilt AI Trading Agents</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
-  <header>
-    <div class="brand">
-      <h1>Tilt AI Trading Agents</h1>
-      <p class="tag">5-stage multi-agent pipeline · asymmetric LLM-to-role assignment · Robinhood Chain (id 46630)</p>
-    </div>
-    <div class="status">
-      <div class="cap">
-        Real runs today: <span id="cap-used">–</span>/<span id="cap-limit">–</span>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="logo" href="/" aria-label="Tilt AI Trading Agents — home">
+      <svg class="mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#2bf3a3" />
+            <stop offset="100%" stop-color="#00bb73" />
+          </linearGradient>
+        </defs>
+        <path d="M16 3 L29 16 L16 29 L3 16 Z" fill="none" stroke="url(#g)" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M16 9 L23 16 L16 23 L9 16 Z" fill="url(#g)" opacity="0.85"/>
+      </svg>
+      <div class="brand">
+        <span class="name">Tilt AI <span class="thin">/ Trading Agents</span></span>
+        <span class="kicker">5-stage multi-agent pipeline · asymmetric LLM-to-role</span>
       </div>
-      <div id="active-path" class="path">path: …</div>
+    </a>
+
+    <div class="status-row">
+      <span class="pill chain">
+        <span class="dot dot-mint"></span>
+        Robinhood Chain · <code>46630</code>
+      </span>
+      <span class="pill" id="active-path-pill">
+        <span class="dot"></span>
+        path: <code id="active-path">…</code>
+      </span>
+      <span class="pill cap-pill" id="cap-pill">
+        Real today: <b id="cap-used">–</b><span class="muted">/<span id="cap-limit">–</span></span>
+      </span>
     </div>
   </header>
 
-  <nav class="tabs">
-    <button data-tab="run" class="tab-btn active">Run pipeline</button>
-    <button data-tab="samples" class="tab-btn">Sample runs</button>
-    <button data-tab="architecture" class="tab-btn">Architecture</button>
-    <button data-tab="about" class="tab-btn">About</button>
+  <nav class="tabs" role="tablist">
+    <button data-tab="run" class="tab-btn active" role="tab">Run pipeline</button>
+    <button data-tab="samples" class="tab-btn" role="tab">Sample runs</button>
+    <button data-tab="architecture" class="tab-btn" role="tab">Architecture</button>
+    <button data-tab="about" class="tab-btn" role="tab">About</button>
   </nav>
 
   <main>
     <!-- RUN TAB -->
-    <section id="tab-run" class="tab active">
-      <div class="run-controls">
-        <button id="btn-mock" class="primary">Run mock (free, deterministic)</button>
-        <button id="btn-real" class="primary danger">Run real (counts toward 10/day)</button>
-        <button id="btn-stop" class="secondary" disabled>Disconnect stream</button>
-      </div>
-
-      <div class="pipeline">
-        <div class="stage" data-node="fundamentals">
-          <span class="dot"></span><b>Fundamentals</b><span class="model" data-role="fundamentals">–</span>
+    <section id="tab-run" class="tab active" role="tabpanel">
+      <div class="control-bar">
+        <div class="ctrl-group">
+          <button id="btn-mock" class="btn btn-primary">
+            <span class="btn-glyph">▶</span>
+            <span>Run mock</span>
+            <span class="btn-sub">free · ~50ms</span>
+          </button>
+          <button id="btn-real" class="btn btn-accent">
+            <span class="btn-glyph">⚡</span>
+            <span>Run real</span>
+            <span class="btn-sub">~$0.05 · ~60s</span>
+          </button>
+          <button id="btn-stop" class="btn btn-ghost" disabled>
+            Disconnect
+          </button>
         </div>
-        <div class="stage" data-node="technical">
-          <span class="dot"></span><b>Technical</b><span class="model" data-role="technical">–</span>
-        </div>
-        <div class="stage" data-node="news">
-          <span class="dot"></span><b>News</b><span class="model" data-role="news">–</span>
-        </div>
-        <div class="stage" data-node="sentiment">
-          <span class="dot"></span><b>Sentiment</b><span class="model" data-role="sentiment">–</span>
-        </div>
-        <div class="arrow">↓</div>
-        <div class="stage" data-node="bull">
-          <span class="dot"></span><b>Bull researcher</b><span class="model" data-role="bull">–</span>
-        </div>
-        <div class="arrow">↓</div>
-        <div class="stage" data-node="bear">
-          <span class="dot"></span><b>Bear researcher</b><span class="model" data-role="bear">–</span>
-        </div>
-        <div class="arrow">↓</div>
-        <div class="stage" data-node="trader">
-          <span class="dot"></span><b>Trader</b><span class="model" data-role="trader">–</span>
-        </div>
-        <div class="arrow">↓</div>
-        <div class="stage" data-node="risk">
-          <span class="dot"></span><b>Risk Manager</b><span class="model" data-role="risk">–</span>
-        </div>
-        <div class="arrow">↓</div>
-        <div class="stage" data-node="fund_manager">
-          <span class="dot"></span><b>Fund Manager + Tilt execution</b><span class="model" data-role="fund_manager">–</span>
+        <div class="run-meta">
+          <span id="run-timer" class="timer">0.0s</span>
+          <span id="run-status" class="status-line">Ready.</span>
         </div>
       </div>
 
-      <div id="run-status" class="run-status">Ready.</div>
+      <div class="layout">
+        <section class="panel pipeline-panel">
+          <div class="panel-head">
+            <h2>Pipeline</h2>
+            <span class="panel-sub">9 nodes · 1 cycle</span>
+          </div>
+          <div class="pipeline">
+            <div class="row analysts">
+              <div class="node" data-node="fundamentals">
+                <span class="node-state"><span class="state-dot"></span></span>
+                <div class="node-meta">
+                  <h4>Fundamentals</h4>
+                  <code class="node-model" data-role="fundamentals">–</code>
+                </div>
+                <span class="node-tick" aria-hidden="true">+<span class="t">0</span>s</span>
+              </div>
+              <div class="node" data-node="technical">
+                <span class="node-state"><span class="state-dot"></span></span>
+                <div class="node-meta">
+                  <h4>Technical</h4>
+                  <code class="node-model" data-role="technical">–</code>
+                </div>
+                <span class="node-tick">+<span class="t">0</span>s</span>
+              </div>
+              <div class="node" data-node="news">
+                <span class="node-state"><span class="state-dot"></span></span>
+                <div class="node-meta">
+                  <h4>News</h4>
+                  <code class="node-model" data-role="news">–</code>
+                </div>
+                <span class="node-tick">+<span class="t">0</span>s</span>
+              </div>
+              <div class="node" data-node="sentiment">
+                <span class="node-state"><span class="state-dot"></span></span>
+                <div class="node-meta">
+                  <h4>Sentiment</h4>
+                  <code class="node-model" data-role="sentiment">–</code>
+                </div>
+                <span class="node-tick">+<span class="t">0</span>s</span>
+              </div>
+            </div>
+            <div class="connector vertical"><span></span></div>
+            <div class="row debate">
+              <div class="node" data-node="bull">
+                <span class="node-state"><span class="state-dot"></span></span>
+                <div class="node-meta">
+                  <h4>Bull researcher</h4>
+                  <code class="node-model" data-role="bull">–</code>
+                </div>
+                <span class="node-tick">+<span class="t">0</span>s</span>
+              </div>
+              <div class="connector horizontal"><span></span></div>
+              <div class="node" data-node="bear">
+                <span class="node-state"><span class="state-dot"></span></span>
+                <div class="node-meta">
+                  <h4>Bear researcher</h4>
+                  <code class="node-model" data-role="bear">–</code>
+                </div>
+                <span class="node-tick">+<span class="t">0</span>s</span>
+              </div>
+            </div>
+            <div class="connector vertical"><span></span></div>
+            <div class="row">
+              <div class="node node-key" data-node="trader">
+                <span class="node-state"><span class="state-dot"></span></span>
+                <div class="node-meta">
+                  <h4>Trader · proposal</h4>
+                  <code class="node-model" data-role="trader">–</code>
+                </div>
+                <span class="node-tick">+<span class="t">0</span>s</span>
+              </div>
+            </div>
+            <div class="connector vertical"><span></span></div>
+            <div class="row">
+              <div class="node" data-node="risk">
+                <span class="node-state"><span class="state-dot"></span></span>
+                <div class="node-meta">
+                  <h4>Risk Manager</h4>
+                  <code class="node-model" data-role="risk">–</code>
+                </div>
+                <span class="node-tick">+<span class="t">0</span>s</span>
+              </div>
+            </div>
+            <div class="connector vertical"><span></span></div>
+            <div class="row">
+              <div class="node" data-node="fund_manager">
+                <span class="node-state"><span class="state-dot"></span></span>
+                <div class="node-meta">
+                  <h4>Fund Manager + Tilt execution</h4>
+                  <code class="node-model" data-role="fund_manager">–</code>
+                </div>
+                <span class="node-tick">+<span class="t">0</span>s</span>
+              </div>
+            </div>
+          </div>
+        </section>
 
-      <div id="agent-outputs" class="agent-outputs"></div>
-
-      <div id="final-panel" class="final-panel" hidden>
-        <h2>Final result</h2>
-        <div class="cards">
-          <div class="card" id="card-proposal"><h3>Trader proposal</h3><pre></pre></div>
-          <div class="card" id="card-risk"><h3>Risk verdict</h3><pre></pre></div>
-          <div class="card" id="card-fm"><h3>Fund Manager</h3><pre></pre></div>
-          <div class="card" id="card-exec"><h3>On-chain execution (mock Tilt)</h3><pre></pre></div>
-        </div>
+        <section class="panel stream-panel">
+          <div class="panel-head">
+            <h2>Reasoning stream</h2>
+            <span class="panel-sub" id="stream-counter">0 events</span>
+          </div>
+          <div id="agent-outputs" class="stream">
+            <div class="stream-empty">No events yet — run the pipeline to populate.</div>
+          </div>
+        </section>
       </div>
+
+      <section id="final-panel" class="panel result-panel" hidden>
+        <div class="panel-head">
+          <h2>Final cycle output</h2>
+          <span class="panel-sub" id="final-elapsed"></span>
+        </div>
+        <div class="result-grid">
+          <article class="result-card" id="card-proposal">
+            <header><span class="tag">Trader</span><h3>Proposal</h3></header>
+            <div class="kv-grid">
+              <div class="kv"><span>Direction</span><b id="rp-dir" class="big">–</b></div>
+              <div class="kv"><span>Size</span><b id="rp-size">–</b></div>
+              <div class="kv"><span>Entry</span><b id="rp-entry">–</b></div>
+              <div class="kv"><span>Target / Stop</span><b id="rp-tgt">–</b></div>
+            </div>
+            <p class="thesis" id="rp-thesis"></p>
+          </article>
+
+          <article class="result-card" id="card-risk">
+            <header><span class="tag">Risk</span><h3>Verdict</h3></header>
+            <div class="verdict" id="rd-verdict">–</div>
+            <p class="thesis" id="rd-reason"></p>
+          </article>
+
+          <article class="result-card" id="card-fm">
+            <header><span class="tag">Fund mgr</span><h3>Final call</h3></header>
+            <div class="verdict" id="fm-verdict">–</div>
+          </article>
+
+          <article class="result-card" id="card-exec">
+            <header><span class="tag">Tilt</span><h3>Execution receipt</h3></header>
+            <div class="kv-grid">
+              <div class="kv"><span>Status</span><b id="ex-status">–</b></div>
+              <div class="kv"><span>Chain</span><b id="ex-chain">–</b></div>
+              <div class="kv"><span>Block</span><b id="ex-block">–</b></div>
+              <div class="kv"><span>Tx hash</span><code id="ex-tx" class="hash">–</code></div>
+            </div>
+          </article>
+        </div>
+      </section>
     </section>
 
     <!-- SAMPLES TAB -->
-    <section id="tab-samples" class="tab">
-      <p class="lede">Pre-recorded runs checked into the repo. The 10 <code>run_real_NVDA_*.json</code> files are real OpenRouter executions of the architecture-spec asymmetric assignment.</p>
+    <section id="tab-samples" class="tab" role="tabpanel">
+      <p class="lede">Pre-recorded runs checked into the repo. The 10 <code>run_real_NVDA_*.json</code> files are real OpenRouter executions of the architecture-spec asymmetric assignment; <code>summary.json</code> aggregates them.</p>
       <div class="samples-row">
-        <select id="sample-select"></select>
-        <button id="sample-load" class="primary">Load</button>
+        <select id="sample-select" aria-label="Sample run"></select>
+        <button id="sample-load" class="btn btn-primary">Load</button>
       </div>
-      <pre id="sample-view" class="sample-view"></pre>
+      <pre id="sample-view" class="sample-view">Pick a file and load.</pre>
     </section>
 
     <!-- ARCHITECTURE TAB -->
-    <section id="tab-architecture" class="tab">
-      <p class="lede">Each role maps to a different LLM by design — exploiting the empirical strengths each model showed in Alpha Arena Season 1 (Oct–Nov 2025).</p>
-      <table class="arch-table">
-        <thead>
-          <tr><th>Role</th><th>OpenRouter model (default path)</th><th>Anthropic fallback</th></tr>
-        </thead>
-        <tbody id="arch-tbody"></tbody>
-      </table>
+    <section id="tab-architecture" class="tab" role="tabpanel">
+      <p class="lede">Each role maps to a different LLM by design — exploiting the empirical strengths each model showed in <b>Alpha Arena Season 1</b> (Oct–Nov 2025). The default path runs through OpenRouter on a single key; an Anthropic-only fallback substitutes Claude for every role.</p>
+      <div class="panel">
+        <table class="arch-table">
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>OpenRouter (default)</th>
+              <th>Anthropic fallback</th>
+            </tr>
+          </thead>
+          <tbody id="arch-tbody"></tbody>
+        </table>
+      </div>
       <p class="footnote">Reflection (Llama 3.3 70B) is configured but not invoked in the single-cycle prototype — it runs after a position closes.</p>
     </section>
 
     <!-- ABOUT TAB -->
-    <section id="tab-about" class="tab">
-      <h2>What this demo does</h2>
-      <ul>
-        <li><b>Mock mode</b> — deterministic stub responses, no API calls, instant. Use it freely.</li>
-        <li><b>Real mode</b> — actually runs the 5-stage pipeline through OpenRouter against the architecture-spec asymmetric LLM map. Cycle wall-time ~60s. Capped at <b>10 real runs / UTC day</b>.</li>
-        <li><b>Sample runs</b> — 10 pre-saved real runs + a summary aggregating direction distribution, sizing, risk decisions.</li>
-      </ul>
-      <h2>Pipeline (per cycle)</h2>
-      <ol>
-        <li><b>4 analysts in parallel</b> — Fundamentals, Technical, News, Sentiment</li>
-        <li><b>Bull / Bear sequential debate</b> over the analyst reports</li>
-        <li><b>Trader</b> proposes a structured JSON trade</li>
-        <li><b>Risk Manager</b> approves / modifies / vetoes against vault constraints</li>
-        <li><b>Fund Manager</b> makes the final call → mock Tilt execution on chain 46630</li>
-      </ol>
-      <h2>Why asymmetric LLMs?</h2>
-      <p>
-        The lazy submission is "Claude vs GPT vs Gemini head-to-head" — that's Alpha Arena, already done. Our move: use AA Season 1 results as labelled empirical data on each model's behavioural personality, then assign each LLM to the role where it demonstrated strength. Qwen3 Max (S1 winner, +22.3%, disciplined low-frequency execution) becomes the Trader. Claude Sonnet 4.6 (most cautious in S1 — wrong personality for a trader, exactly right for a risk officer) becomes the Risk Manager and the bull/bear/fund-manager stack.
-      </p>
+    <section id="tab-about" class="tab" role="tabpanel">
+      <div class="panel about">
+        <h2>What this demo does</h2>
+        <ul>
+          <li><b>Mock mode</b> — deterministic stub responses, no API calls, instant. Free.</li>
+          <li><b>Real mode</b> — runs the 5-stage pipeline through OpenRouter against the architecture-spec asymmetric LLM map. ~60s per cycle, ~$0.05. Hard cap of <b>10 real runs / UTC day</b>.</li>
+          <li><b>Sample runs</b> — 11 pre-saved real runs + a 10-run aggregate summary.</li>
+        </ul>
+
+        <h2>Pipeline (per cycle)</h2>
+        <ol>
+          <li><b>4 analysts in parallel</b> — Fundamentals, Technical, News, Sentiment.</li>
+          <li><b>Bull / Bear sequential debate</b> over the analyst reports.</li>
+          <li><b>Trader</b> proposes a structured JSON trade.</li>
+          <li><b>Risk Manager</b> approves / modifies / vetoes against vault constraints.</li>
+          <li><b>Fund Manager</b> makes the final call → mock Tilt execution on chain 46630.</li>
+        </ol>
+
+        <h2>Why asymmetric LLMs?</h2>
+        <p>
+          The lazy submission is "Claude vs GPT vs Gemini head-to-head" — that's Alpha Arena, already done. Our move: use AA Season 1 results as labelled empirical data on each model's behavioural personality, then assign each LLM to the role where it demonstrated strength. Qwen3 Max (S1 winner, +22.3%, disciplined low-frequency execution) becomes the Trader. Claude Sonnet 4.6 (most cautious in S1 — wrong personality for a trader, exactly right for a risk officer) becomes the Risk Manager and the bull/bear/fund-manager stack.
+        </p>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <span>prototype · MIT · <code id="repo-link">tilt-trading-agents</code></span>
+  <footer class="bottom">
+    <div>
+      <span class="dim">prototype · MIT</span> · <a href="https://github.com/AbylaiSekerbek7/Tilt_MultiAgent" target="_blank" rel="noopener">github.com/AbylaiSekerbek7/Tilt_MultiAgent</a>
+    </div>
+    <div class="dim">submitted to Tilt Protocol AI Agents Trading Battle</div>
   </footer>
 
   <script src="/static/app.js"></script>
