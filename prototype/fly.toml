@@ -1,6 +1,6 @@
 # Fly.io configuration. Replace `app` name on first `fly launch`.
 # Fly will pick this up automatically; no need to override.
-app = "tilt-trading-agents"
+app = "tilt-agents-abylai"
 primary_region = "fra"  # Frankfurt — pick whatever's near your mentors
 
 [build]

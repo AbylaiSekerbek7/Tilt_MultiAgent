@@ -1,0 +1,22 @@
+# Render Blueprint. Imported automatically when you add this repo as a Blueprint
+# in the Render dashboard (https://render.com → New + → Blueprint).
+services:
+  - type: web
+    name: tilt-agents-abylai
+    runtime: python
+    rootDir: prototype
+    plan: free
+    branch: main
+    region: frankfurt
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn web.app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/cap
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: REAL_DAILY_LIMIT
+        value: "10"
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
