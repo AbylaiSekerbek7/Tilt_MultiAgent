@@ -1,0 +1,11 @@
+.venv
+.env
+__pycache__
+**/__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.mypy_cache
+output/.daily_cap.json
+output/run_[0-9]*.json
+.DS_Store

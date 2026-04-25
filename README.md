@@ -35,7 +35,7 @@ LangGraph computation:
 
 Full architectural rationale, including the empirical justification for each
 LLM-to-role assignment and the equities-native multi-cycle design, is in
-[`docs/01-architecture.md`](../docs/01-architecture.md).
+[`docs/01-architecture.md`](./docs/01-architecture.md).
 
 ## Quick start
 
@@ -68,10 +68,30 @@ state — including the audit trail of every reasoning step — to
 `output/run_<timestamp>.json`.
 
 A reference mock run is checked in at
-[`output/sample_run_NVDA.json`](./output/sample_run_NVDA.json). A reference
-real-mode run produced via OpenRouter against the architecture-spec
-asymmetric model assignment is at
-[`output/sample_run_real_NVDA.json`](./output/sample_run_real_NVDA.json).
+[`prototype/output/sample_run_NVDA.json`](./prototype/output/sample_run_NVDA.json).
+A reference real-mode run produced via OpenRouter against the
+architecture-spec asymmetric model assignment is at
+[`prototype/output/sample_run_real_NVDA.json`](./prototype/output/sample_run_real_NVDA.json).
+Nine more real runs (`prototype/output/run_real_NVDA_02.json` … `_10.json`)
+plus a ten-run aggregate at
+[`prototype/output/summary.json`](./prototype/output/summary.json) are
+checked in too.
+
+## Web UI (live demo for reviewers)
+
+```bash
+cd prototype
+uvicorn web.app:app --host 0.0.0.0 --port 8000
+# open http://localhost:8000
+```
+
+Browser UI with three tabs: **Run pipeline** (mock free / real capped at 10
+runs per UTC day, agent outputs streamed live via SSE as each LangGraph node
+completes), **Sample runs** (browse the 11 saved JSON outputs + summary),
+**Architecture** (per-role model assignment table). Backed by FastAPI in
+[`prototype/web/app.py`](./prototype/web/app.py); deploy instructions for
+Fly.io (recommended), Render, and HuggingFace Spaces are in
+[`prototype/web/DEPLOY.md`](./prototype/web/DEPLOY.md).
 
 ## Architecture in code
 
@@ -153,7 +173,7 @@ not in burning your API budget.
 
 Run-rate ~$360/mo with prompt caching, $750/mo budget with safety margin and
 backtest infrastructure. Full line-item breakdown in
-[`docs/02-implementation.md`](../docs/02-implementation.md).
+[`docs/02-implementation.md`](./docs/02-implementation.md).
 
 ## License
 
